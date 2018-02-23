@@ -11,20 +11,14 @@ class ListComposer
     protected $repository;
 
     /**
-     * ListComposer constructor.
-     */
-    public function __construct()
-    {
-        if(!is_array($this->repository)) {
-            $this->repository = [$this->repository];
-        }
-    }
-
-    /**
      * @param View $view
      */
     public function compose(View $view)
     {
+        if(!is_array($this->repository)) {
+            $this->repository = [$this->repository];
+        }
+        
         foreach($this->repository as $repository) {
             $items = $repository->findList(true);
             $view->with($repository->getTable(), $items);
